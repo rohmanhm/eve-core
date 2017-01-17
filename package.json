@@ -1,0 +1,43 @@
+{
+  "name": "card-maker",
+  "version": "0.0.1",
+  "description": "Making card simple using JSON",
+  "keywords": [
+    "card",
+    "maker",
+    "canvas"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rohmanhm/card-maker"
+  },
+  "bugs": {
+    "url": "https://github.com/rohmanhm/card-maker/issues"
+  },
+  "homepage": "https://github.com/rohmanhm/card-maker#readme",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack -w",
+    "demo": "./node_modules/.bin/babel-node ./server.js",
+    "deploy": "NODE_ENV=production ./node_modules/.bin/webpack -p"
+  },
+  "author": {
+    "name": "Habib Rohman",
+    "email": "mhrohman@live.com",
+    "url": "https://github.com/rohmanhm"
+  },
+  "license": "Apache License 2.0",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-env": "^1.1.4",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "es6-promise": "^4.0.5",
+    "open": "^0.0.5",
+    "webpack": "2.2.0-rc.3"
+  },
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}

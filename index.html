@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Card Maker by RohmanHM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #fbfbfb;
+      font-family: 'Roboto', sans-serif;
+    }
+    .container {
+      background: #fff;
+      border-radius: 15px;
+      width: 600px;
+      max-width: 100%;
+      margin: 20px auto;
+      box-shadow: 0px 0 25px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      padding-bottom: 80px;
+      text-align: center;
+    }
+    #card-container {
+      margin: 10px auto;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 5px;
+      background-color: #eee;
+      border: 0;
+      box-shadow: 0px 0 25px rgba(0, 0, 0, 0.05);
+      min-width: 200px;
+      max-width: 100%;
+    }
+    a {
+      text-decoration: none;
+    }
+    p {
+      line-height: 2;
+    }
+    </style>
+  </head>
+  <body>
+  
+    <div class="container">
+      <h1>
+        Card Maker by RohmanHM
+      </h1>
+      <p>
+        Make your card via JSON.
+      </p>
+      <div id="card-container"></div>
+      <div id="control-wrapper">
+        <a href="#" target="_blank" id="download">
+          <button type="button">DOWNLOAD</button>
+        </a>
+
+        <button type="button" id="renderCard">RE-RENDER</button>
+      </div>
+    </div>
+
+  <script type="text/javascript" src="dist/card-maker.js"></script>
+  <script type="text/javascript">
+  var template1 = {
+    "background": "http://rohmanhm.github.io/img/defaultbg.jpg",
+    "text": [
+      {
+        "name": "fullName",
+        "description": "Input your full name, or anything",
+        "value": "RohmanHM",
+        "props": {
+          "x": 270,
+          "y": 71,
+          "size": 20,
+          "stroke": false,
+          "align": "center"
+        }
+      }, {
+        "name": "email",
+        "description": "Input your email address",
+        "value": "mhrohman@live.com",
+        "props": {
+          "x": 195,
+          "y": 118,
+          "size": 12,
+          "stroke": false,
+          "align":"left"
+        }
+      }, {
+        "name": "phoneNumber",
+        "description": "Input your phone number",
+        "value": "(+62)-823-308-99999",
+        "props": {
+          "x": 195,
+          "y": 139,
+          "size": 12,
+          "stroke": false,
+          "align":"left"
+        }
+      }, {
+        "name": "streedAddress",
+        "description": "Input your street address",
+        "value": "Sillicon Valley Street 3B",
+        "props": {
+          "x": 195,
+          "y": 159,
+          "size": 12,
+          "stroke": false,
+          "align":"left"
+        }
+      }
+    ],
+    "images": [
+      {
+        "name": "imageProfile",
+        "description": "Input your image avatar",
+        "value": "https://avatars1.githubusercontent.com/u/7524911?v=3&s=460",
+        "props": {
+          "x": 22,
+          "y": 32,
+          "width": 100,
+          "height": 100
+        }
+      }
+    ]
+  };
+
+  var cm = new CardMaker({
+    el: "#card-container",
+    widthCanvas: 500,
+    download: "#download",
+    template: template1,
+    color: "white"
+  });
+
+  document.getElementById('renderCard').onclick = function () {
+    cm.render();
+  }
+  </script>
+  </body>
+</html>
