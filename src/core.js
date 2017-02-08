@@ -313,7 +313,7 @@ export default class CardMaker {
 
         setTimeout(() => {
           ctx.drawImage(img, prop.sx || 0, prop.sy || 0, prop.swidth || img.width, prop.sheight || img.height, prop.x || 0, prop.y || 0, prop.width || img.width, prop.height || img.height);
-        }, 0)
+        }, 1)
       })
     }).then(() => {
       return true;
@@ -332,7 +332,7 @@ export default class CardMaker {
     return Promise.each(text, (val, key) => {
       setTimeout(() => {
         this.writeText(val.value, val.props);
-      }, 0)
+      }, 1)
     })
 
   }
