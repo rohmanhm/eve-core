@@ -311,9 +311,9 @@ export default class CardMaker {
         let ctx = this.getContext();
         let prop = image.props;
 
-        ctx.beginPath();
-        ctx.drawImage(img, prop.sx || 0, prop.sy || 0, prop.swidth || img.width, prop.sheight || img.height, prop.x || 0, prop.y || 0, prop.width || img.width, prop.height || img.height);
-        ctx.closePath();
+        setTimeout(() => {
+          ctx.drawImage(img, prop.sx || 0, prop.sy || 0, prop.swidth || img.width, prop.sheight || img.height, prop.x || 0, prop.y || 0, prop.width || img.width, prop.height || img.height);
+        }, 0)
       })
     }).then(() => {
       return true;
@@ -329,9 +329,10 @@ export default class CardMaker {
   renderText = () => {
     let text = this.getConfig('template')['text'];
 
-    text.forEach((val, key) => {
-      this.writeText(val.value, val.props);
-
+    return Promise.each(text, (val, key) => {
+      setTimeout(() => {
+        this.writeText(val.value, val.props);
+      }, 0)
     })
 
   }
@@ -380,12 +381,10 @@ export default class CardMaker {
 
     if (text == '' || text == undefined ) console.warn('We\'ve found you insert an empty text, please make sure you make it valuable.');
 
-    ctx.beginPath();
     ctx.fillStyle = props.color || config['color'];
     ctx.textAlign = props.align || config['align'];
     ctx.font = `${ props.size || 20 }px ${ props.family || 'Arial' }`;
     ctx.fillText( text, props.x || 0 , props.y || 0 );
-    ctx.closePath();
 
     return ctx;
   }
