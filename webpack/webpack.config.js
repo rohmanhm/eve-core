@@ -22,7 +22,9 @@ module.exports = env => {
     }:
     {
       filename: '../dist/[name].js',
-      path: path.join(__dirname, '../dist/')
+      path: path.join(__dirname, '../dist/'),
+      libraryTarget: 'umd',
+      library: ['CardMaker']
     };
 
   // Add dev plugins
@@ -72,7 +74,10 @@ module.exports = env => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: [ ['latest', { modules: false }], 'stage-0' ]
+              presets: [ ['latest', { modules: false }], 'stage-0' ],
+              "plugins": [
+                "add-module-exports"
+              ]
             }
           },
           resource: {
