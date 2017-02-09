@@ -2,7 +2,7 @@
   "name": "card-maker",
   "version": "0.0.4",
   "description": "Making card simple using JSON",
-  "main": "index.js",
+  "main": "./dist/card-maker.js",
   "keywords": [
     "card",
     "maker",
