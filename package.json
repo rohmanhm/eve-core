@@ -1,6 +1,6 @@
 {
   "name": "card-maker",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Making card simple using JSON",
   "main": "./dist/card-maker.js",
   "keywords": [
@@ -36,5 +36,7 @@
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
 }

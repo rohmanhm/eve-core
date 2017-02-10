@@ -45,6 +45,25 @@
     p {
       line-height: 2;
     }
+    #input-wrapper {
+      width: 400px;
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
+    .text {
+      width: 100%;
+      border-radius: 3px;
+      border: 1px solid #eeeeee;
+      padding: 10px;
+      font-size: 1em;
+      background-color: rgb(251, 251, 251);
+    }
+    input.text:focus {
+      outline: none;
+    }
+    .form__group {
+      margin: 5px 0;
+    }
     </style>
   </head>
   <body>
@@ -57,6 +76,25 @@
         Make your card via JSON.
       </p>
       <div id="card-container"></div>
+      <div id="input-wrapper">
+        <form name="input-form">
+          <div class="form__group">
+            <input type="text" class="text" name="img" placeholder="Your image URL">
+          </div>
+          <div class="form__group">
+            <input type="text" class="text" name="name" placeholder="Your name">
+          </div>
+          <div class="form__group">
+            <input type="email" class="text" name="email" placeholder="Your email">
+          </div>
+          <div class="form__group">
+            <input type="text" class="text" name="phone" placeholder="Your phone number">
+          </div>
+          <div class="form__group">
+            <input type="text" class="text" name="address" placeholder="Your address">
+          </div>
+        </form>
+      </div>
       <div id="control-wrapper">
         <a href="#" target="_blank" id="download">
           <button type="button">DOWNLOAD</button>

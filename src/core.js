@@ -5,7 +5,7 @@
  *
  * @class CardMaker
  */
-
+import pick from 'lodash/pick'
 import {
   makeElement,
   makeImage,
@@ -62,6 +62,11 @@ export default class CardMaker {
       el: '#cardmaker',
 
       /*
+       * When it set to true, your element will be set default value with template value
+       */
+      enableSetToElement: true,
+
+      /*
        * Default Width for card maker.
        */ 
       width: 400,
@@ -75,6 +80,11 @@ export default class CardMaker {
        * Template config card maker
        */ 
       template: {},
+
+      /*
+       * Template will update if element related changed
+       */ 
+      streamElemTemplate: true
     });
 
     // set default config to global
@@ -255,15 +265,18 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   render() {
-    let config = this.getConfig(['background', 'template']);
+    let config = this.getConfig(['background', 'template', 'streamElemTemplate']);
 
     // just check if background set from template
     if (!config['background'] && config['template']['background'].length > 0) this.setConfig('background', config['template']['background']);
 
     let actionRender = [this.renderBackground(), this.renderImage()];
-    return Promise.all(actionRender).then(() => {
-      this.renderText();
-    });
+    return Promise.all(actionRender)
+      .then(() => {
+        this.renderText();
+      }).then(() => {
+        if (config['streamElemTemplate']) this.streamElemTemplate()
+      })
 
   }
 
@@ -312,6 +325,7 @@ export default class CardMaker {
         let prop = image.props;
 
         setTimeout(() => {
+          this.setToElement(image.name, image.value)
           ctx.drawImage(img, prop.sx || 0, prop.sy || 0, prop.swidth || img.width, prop.sheight || img.height, prop.x || 0, prop.y || 0, prop.width || img.width, prop.height || img.height);
         }, 1)
       })
@@ -331,6 +345,7 @@ export default class CardMaker {
 
     return Promise.each(text, (val, key) => {
       setTimeout(() => {
+        this.setToElement(val.name, val.value)
         this.writeText(val.value, val.props);
       }, 1)
     })
@@ -365,6 +380,52 @@ export default class CardMaker {
 
         return this.getConfig([params[0]]);
       }
+    }
+  }
+
+  
+  /**
+   * Stream and real time update your template config
+   * it's stream from element attribute which have same name
+   * with template name object
+   * 
+   * @memberOf CardMaker
+   */
+  streamElemTemplate () {
+    const template = this.getConfig('template')
+    const sorteredTemplate = pick(template, ['images', 'text'])
+
+    for (let i in sorteredTemplate) {
+      sorteredTemplate[i].forEach((obj) => {
+        let selector = document.querySelector(`[name=${ obj.name }]`)
+        if (selector) {
+          selector.addEventListener('keyup', ({ target: { value } }) => {
+            obj.value = value
+          })
+        }
+      })
+    }
+  }
+
+  
+  /**
+   * Set text from template to element
+   * this function will be set element with the same name of element attribute
+   * and template name object
+   * 
+   * @param {string} name
+   * @param {string} value
+   * @returns
+   * 
+   * @memberOf CardMaker
+   */
+  setToElement (name, value) {
+    let enableSetToElement = this.getConfig('enableSetToElement')
+    if (!enableSetToElement) return false
+
+    const el = document.querySelector(`[name=${ name }]`)
+    if (el) {
+      return el.value = value
     }
   }
 

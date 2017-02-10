@@ -2,7 +2,7 @@ var template1 = {
     "background": "https://rohmanhm.github.io/img/defaultbg.jpg",
     "text": [
       {
-        "name": "fullName",
+        "name": "name",
         "description": "Input your full name, or anything",
         "value": "RohmanHM",
         "props": {
@@ -24,7 +24,7 @@ var template1 = {
           "align":"left"
         }
       }, {
-        "name": "phoneNumber",
+        "name": "phone",
         "description": "Input your phone number",
         "value": "(+62)-823-308-99999",
         "props": {
@@ -35,7 +35,7 @@ var template1 = {
           "align":"left"
         }
       }, {
-        "name": "streedAddress",
+        "name": "address",
         "description": "Input your street address",
         "value": "Sillicon Valley Street 3B",
         "props": {
@@ -49,7 +49,7 @@ var template1 = {
     ],
     "images": [
       {
-        "name": "imageProfile",
+        "name": "img",
         "description": "Input your image avatar",
         "value": "https://avatars1.githubusercontent.com/u/7524911?v=3&s=460",
         "props": {
