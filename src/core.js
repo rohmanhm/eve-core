@@ -11,19 +11,19 @@ import {
   makeImage,
   colorNameToHex,
   isColor
-} from './utils';
+} from './utils'
 
 Promise.each = function(arr, fn) { // take an array and a function
   // invalid input
-  if(!arr || !arr.length) return Promise.reject(new Error("Non array passed to each"));
+  if(!arr || !arr.length) return Promise.reject(new Error("Non array passed to each"))
   // empty case
-  if(arr.length === 0) return Promise.resolve();
+  if(arr.length === 0) return Promise.resolve()
   return arr.reduce(function(prev, cur) {
     return prev.then(() => fn(cur))
-  }, Promise.resolve());
+  }, Promise.resolve())
 }
 
-const _config = new WeakMap();
+const _config = new WeakMap()
 
 export default class CardMaker {
 
@@ -85,19 +85,19 @@ export default class CardMaker {
        * Template will update if element related changed
        */ 
       streamElemTemplate: true
-    });
+    })
 
     // set default config to global
-    this.setConfig(configs);
+    this.setConfig(configs)
 
     // put canvas to DOM
-    this.putCanvas();
+    this.putCanvas()
 
     // init app automatically
-    this.render();
+    this.render()
 
     // enable download button
-    this.enableDownload();
+    this.enableDownload()
 
   }
 
@@ -111,31 +111,31 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   changeBackground(type, props) {
-    const config = this.getConfig(['width', 'height']);
-    let ctx = this.getContext();
+    const config = this.getConfig(['width', 'height'])
+    let ctx = this.getContext()
 
-    ctx.beginPath();
+    ctx.beginPath()
 
     switch(type) {
       case 'image':
         if (props.img == undefined) throw new Error('Make sure you set the background image')
 
-        ctx.drawImage(props.img, 0, 0, config['width'], config['height']);
+        ctx.drawImage(props.img, 0, 0, config['width'], config['height'])
 
-        break;
+        break
       case 'color':
         if (props.color == undefined) throw new Error('Make sure you set the background color')
 
-        ctx.fillStyle = props.color;
-        ctx.rect(0, 0, config['width'], config['height']);
-        ctx.fill();
+        ctx.fillStyle = props.color
+        ctx.rect(0, 0, config['width'], config['height'])
+        ctx.fill()
 
-        break;
+        break
     }
 
-    ctx.closePath();
+    ctx.closePath()
 
-    return ctx;
+    return ctx
   }
 
   /**
@@ -144,19 +144,19 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   enableDownload() {
-    const download = this.getConfig('download');
+    const download = this.getConfig('download')
 
     // download image
     if (download.length > 0) { // Means defined
-      let downloadButton = document.querySelector(download);
+      let downloadButton = document.querySelector(download)
       if (downloadButton) {
         downloadButton.addEventListener('click', (e)=> {
-          e.preventDefault();
+          e.preventDefault()
 
-          window.location.href = this.getImage();
-        });
+          window.location.href = this.getImage()
+        })
       } else {
-        throw new Error(`Element ${ download } can't found in your DOM. Please check again, maybe you make a typo`);
+        throw new Error(`Element ${ download } can't found in your DOM. Please check again, maybe you make a typo`)
       }
     }
   }
@@ -170,24 +170,24 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   getConfig(key) {
-    let config = _config.get(this);
+    let config = _config.get(this)
 
     if (key) {
       if (typeof key == 'object') {
-        let result = {};
+        let result = {}
 
         for (let k = 0; k < key.length; k++) {
-          result[key[k]] = config[key[k]];
+          result[key[k]] = config[key[k]]
         }
 
-        return result;
+        return result
       } else if (typeof key == 'string') {
-        if (config[key] == '') throw new Error(`Config with key '${ key }' undefined, please check your key again`);
+        if (config[key] == '') throw new Error(`Config with key '${ key }' undefined, please check your key again`)
 
-        return config[key];
+        return config[key]
       }
     } else {
-      return config;
+      return config
     }
   }
 
@@ -199,7 +199,7 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   getContext() {
-    if (this.getConfig('canvas')) return this.getConfig('canvas').getContext('2d');
+    if (this.getConfig('canvas')) return this.getConfig('canvas').getContext('2d')
   }
 
   /**
@@ -212,7 +212,7 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   getImage(format = 'jpeg', quality = 1.0) {
-    return this.getConfig('canvas').toDataURL(`image/${ format }`, quality);
+    return this.getConfig('canvas').toDataURL(`image/${ format }`, quality)
   }
 
   /**
@@ -224,12 +224,12 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   makeCanvas(props = {}) {
-    if (this.getConfig('canvas') != undefined) throw new Error('Cannot create canvas, You\'ve already set the canvas');
+    if (this.getConfig('canvas') != undefined) throw new Error('Cannot create canvas, You\'ve already set the canvas')
 
-    let canvas = makeElement('canvas', props);
-    this.setConfig('canvas', canvas);
+    let canvas = makeElement('canvas', props)
+    this.setConfig('canvas', canvas)
 
-    return canvas;
+    return canvas
   }
 
   /**
@@ -240,20 +240,20 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   putCanvas() {
-    const config = this.getConfig(['el', 'width', 'height']);
-    let elem, newCanvas;
+    const config = this.getConfig(['el', 'width', 'height'])
+    let elem, newCanvas
 
     newCanvas = this.makeCanvas({
       width: config['width'],
       height: config['height']
-    });
+    })
 
-    elem = document.querySelector(config['el']);
+    elem = document.querySelector(config['el'])
 
     if (elem != null || elem != undefined) {
-      return elem.appendChild(newCanvas);
+      return elem.appendChild(newCanvas)
     } else {
-      throw new Error(`Cannot find ${ elem } element in your DOM`);
+      throw new Error(`Cannot find ${ elem } element in your DOM`)
     }
   }
 
@@ -265,15 +265,15 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   render() {
-    let config = this.getConfig(['background', 'template', 'streamElemTemplate']);
+    let config = this.getConfig(['background', 'template', 'streamElemTemplate'])
 
     // just check if background set from template
-    if (!config['background'] && config['template']['background'].length > 0) this.setConfig('background', config['template']['background']);
+    if (!config['background'] && config['template']['background'].length > 0) this.setConfig('background', config['template']['background'])
 
-    let actionRender = [this.renderBackground(), this.renderImage()];
+    let actionRender = [this.renderBackground(), this.renderImage()]
     return Promise.all(actionRender)
       .then(() => {
-        this.renderText();
+        this.renderText()
       }).then(() => {
         if (config['streamElemTemplate']) this.streamElemTemplate()
       })
@@ -288,23 +288,23 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   renderBackground() {
-    let background = this.getConfig('background');
+    let background = this.getConfig('background')
 
     if (isColor(background)) {
       this.changeBackground('color', {
         color: background
-      });
+      })
     } else if (background != undefined && background != '') {
       makeImage(background).then((img) => {
         this.changeBackground('image', {
           img
-        });
+        })
       })
     } else {
       this.changeBackground('color', {
         color: colorNameToHex('black')
-      });
-      console.warn(`You don't specified background image or color, so .. we give you black background`);
+      })
+      console.warn(`You don't specified background image or color, so .. we give you black background`)
     }
 
   }
@@ -315,22 +315,22 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   renderImage() {
-    let images = this.getConfig('template')['images'];
+    let images = this.getConfig('template')['images']
 
-    // let Promise = require('bluebird');
+    // let Promise = require('bluebird')
     return Promise.each(images, (image) => {
       return makeImage(image.value).then((img) => {
 
-        let ctx = this.getContext();
-        let prop = image.props;
+        let ctx = this.getContext()
+        let prop = image.props
 
         setTimeout(() => {
           this.setToElement(image.name, image.value)
-          ctx.drawImage(img, prop.sx || 0, prop.sy || 0, prop.swidth || img.width, prop.sheight || img.height, prop.x || 0, prop.y || 0, prop.width || img.width, prop.height || img.height);
+          ctx.drawImage(img, prop.sx || 0, prop.sy || 0, prop.swidth || img.width, prop.sheight || img.height, prop.x || 0, prop.y || 0, prop.width || img.width, prop.height || img.height)
         }, 1)
       })
     }).then(() => {
-      return true;
+      return true
     })
 
   }
@@ -341,12 +341,12 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   renderText = () => {
-    let text = this.getConfig('template')['text'];
+    let text = this.getConfig('template')['text']
 
     return Promise.each(text, (val, key) => {
       setTimeout(() => {
         this.setToElement(val.name, val.value)
-        this.writeText(val.value, val.props);
+        this.writeText(val.value, val.props)
       }, 1)
     })
 
@@ -362,23 +362,23 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   setConfig(...params) {
-    let config = this.getConfig();
+    let config = this.getConfig()
 
     if (params) {
       if (typeof params[0] == 'object') {
-        let newConfig = params[0];
-        let keys = [];
+        let newConfig = params[0]
+        let keys = []
 
         for (let [key, val] of Object.entries(newConfig)) {
-          config[key] = val;
-          keys.push(key);
+          config[key] = val
+          keys.push(key)
         }
 
-        return this.getConfig(keys);
+        return this.getConfig(keys)
       } else {
-        config[params[0]] = params[1];
+        config[params[0]] = params[1]
 
-        return this.getConfig([params[0]]);
+        return this.getConfig([params[0]])
       }
     }
   }
@@ -437,17 +437,17 @@ export default class CardMaker {
    * @memberOf CardMaker
    */
   writeText(text, props = {}) {
-    let ctx = this.getContext();
-    let config = this.getConfig(['color', 'align']);
+    let ctx = this.getContext()
+    let config = this.getConfig(['color', 'align'])
 
-    if (text == '' || text == undefined ) console.warn('We\'ve found you insert an empty text, please make sure you make it valuable.');
+    if (text == '' || text == undefined ) console.warn('We\'ve found you insert an empty text, please make sure you make it valuable.')
 
-    ctx.fillStyle = props.color || config['color'];
-    ctx.textAlign = props.align || config['align'];
-    ctx.font = `${ props.size || 20 }px ${ props.family || 'Arial' }`;
-    ctx.fillText( text, props.x || 0 , props.y || 0 );
+    ctx.fillStyle = props.color || config['color']
+    ctx.textAlign = props.align || config['align']
+    ctx.font = `${ props.size || 20 }px ${ props.family || 'Arial' }`
+    ctx.fillText( text, props.x || 0 , props.y || 0 )
 
-    return ctx;
+    return ctx
   }
 
 }
