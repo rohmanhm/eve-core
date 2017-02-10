@@ -325,7 +325,7 @@ export default class CardMaker {
         let prop = image.props
 
         setTimeout(() => {
-          this.setToElement(image.name, image.value)
+          this.setToElement(image.name, image.value, image.description)
           ctx.drawImage(img, prop.sx || 0, prop.sy || 0, prop.swidth || img.width, prop.sheight || img.height, prop.x || 0, prop.y || 0, prop.width || img.width, prop.height || img.height)
         }, 1)
       })
@@ -345,7 +345,7 @@ export default class CardMaker {
 
     return Promise.each(text, (val, key) => {
       setTimeout(() => {
-        this.setToElement(val.name, val.value)
+        this.setToElement(val.name, val.value, val.description)
         this.writeText(val.value, val.props)
       }, 1)
     })
@@ -419,12 +419,13 @@ export default class CardMaker {
    * 
    * @memberOf CardMaker
    */
-  setToElement (name, value) {
+  setToElement (name, value, desc = '') {
     let enableSetToElement = this.getConfig('enableSetToElement')
     if (!enableSetToElement) return false
 
     const el = document.querySelector(`[name=${ name }]`)
     if (el) {
+      el.setAttribute('placeholder', desc)
       return el.value = value
     }
   }

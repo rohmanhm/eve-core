@@ -26,7 +26,7 @@ var template1 = {
     }, {
       "name": "phone",
       "description": "Input your phone number",
-      "value": "(+62)-823-308-99999",
+      "value": "(+62)-823-308-91711",
       "props": {
         "x": 195,
         "y": 139,
@@ -37,7 +37,7 @@ var template1 = {
     }, {
       "name": "address",
       "description": "Input your street address",
-      "value": "Sillicon Valley Street 3B",
+      "value": "Pati, Central Java",
       "props": {
         "x": 195,
         "y": 159,
