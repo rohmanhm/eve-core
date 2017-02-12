@@ -340,7 +340,7 @@ export default class CardMaker {
    *
    * @memberOf CardMaker
    */
-  renderText = () => {
+  renderText() {
     let text = this.getConfig('template')['text']
 
     return Promise.each(text, (val, key) => {
