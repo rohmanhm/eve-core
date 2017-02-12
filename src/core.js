@@ -104,20 +104,21 @@ export default class CardMaker {
   changeBackground(type, props) {
     const config = this.getConfig(['width', 'height'])
     const ctx = this.getContext()
+    const { img, color } = props
 
     ctx.beginPath()
 
     switch(type) {
       case 'image':
-        if (props.img == undefined) throw new Error('Make sure you set the background image')
+        if (img == undefined) throw new Error('Make sure you set the background image')
 
-        ctx.drawImage(props.img, 0, 0, config['width'], config['height'])
+        ctx.drawImage(img, 0, 0, config['width'], config['height'])
 
         break
       case 'color':
-        if (props.color == undefined) throw new Error('Make sure you set the background color')
+        if (color == undefined) throw new Error('Make sure you set the background color')
 
-        ctx.fillStyle = props.color
+        ctx.fillStyle = color
         ctx.rect(0, 0, config['width'], config['height'])
         ctx.fill()
 
