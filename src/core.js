@@ -270,11 +270,11 @@ export default class CardMaker {
     // just check if background set from template
     if (!config['background'] && config['template']['background'].length > 0) this.setConfig('background', config['template']['background'])
 
-    let actionRender = [this.renderBackground(), this.renderImage()]
+    let actionRender = [this.renderBackground()]
     return Promise.all(actionRender)
+      .then(() => this.renderImage())
+      .then(() => this.renderText())
       .then(() => {
-        this.renderText()
-      }).then(() => {
         if (config['streamElemTemplate']) this.streamElemTemplate()
       })
 
@@ -291,20 +291,12 @@ export default class CardMaker {
     let background = this.getConfig('background')
 
     if (isColor(background)) {
-      this.changeBackground('color', {
-        color: background
-      })
+      return this.changeBackground('color', { color: background })
     } else if (background != undefined && background != '') {
-      makeImage(background).then((img) => {
-        this.changeBackground('image', {
-          img
-        })
-      })
+      return makeImage(background).then( img => this.changeBackground('image', { img }))
     } else {
-      this.changeBackground('color', {
-        color: colorNameToHex('black')
-      })
       console.warn(`You don't specified background image or color, so .. we give you black background`)
+      return this.changeBackground('color', { color: colorNameToHex('black') })
     }
 
   }
