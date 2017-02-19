@@ -2,9 +2,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const npm = require('../package.json');
+const ForceBoolean = require('force-boolean');
 
 module.exports = env => {
-  env.dev = (env.dev === 'true');
+  env.dev = ForceBoolean(env.dev)
 
   const LICENSE_TEXT = `
   Copyright (c) 2017 - present ${ npm.author.name } (${ npm.author.url }).
@@ -15,47 +16,52 @@ module.exports = env => {
   Card Maker @${ npm.version }
   `;
 
-  const devOutput = env.dev ?
-    {
-      filename: '../build/[name].js',
-      path: path.join(__dirname, '../build/')
-    }:
-    {
-      filename: '../dist/[name].js',
+  const devOutput = env.dev
+  ? {
+      filename: '[name].js',
+      publicPath: 'build/',
+      path: path.join(__dirname, '../build/'),
+      libraryTarget: 'umd',
+      library: ['CardMaker']
+    }
+  : {
+      filename: '[name].js',
       path: path.join(__dirname, '../dist/'),
+      publicPath: 'dist/',
       libraryTarget: 'umd',
       library: ['CardMaker']
     };
 
   // Add dev plugins
-  const devPlugins = env.dev ? [
-    new webpack.DefinePlugin({
-      "process.env": { 
-        NODE_ENV: JSON.stringify("development") 
-      }
-    }),
-    new webpack.BannerPlugin(LICENSE_TEXT)
-  ]:
-  [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: false,
-      compress: {
-        'screw_ie8': true,
-        'warnings': false
-      },
-      output: {
-        comments: false,
-      },
-      sourceMap: false,
-    }),
-    new webpack.DefinePlugin({
-      "process.env": { 
-        NODE_ENV: JSON.stringify("production") 
-      }
-    }),
-    new webpack.BannerPlugin(LICENSE_TEXT)
-  ]
+  const devPlugins = env.dev 
+  ? [
+      new webpack.DefinePlugin({
+        "process.env": { 
+          NODE_ENV: JSON.stringify("development") 
+        }
+      }),
+      new webpack.BannerPlugin(LICENSE_TEXT)
+    ]
+  : [
+      new webpack.optimize.OccurrenceOrderPlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        mangle: false,
+        compress: {
+          'screw_ie8': true,
+          'warnings': false
+        },
+        output: {
+          comments: false,
+        },
+        sourceMap: false,
+      }),
+      new webpack.DefinePlugin({
+        "process.env": { 
+          NODE_ENV: JSON.stringify("production") 
+        }
+      }),
+      new webpack.BannerPlugin(LICENSE_TEXT)
+    ]
 
   return {
     entry: {
@@ -88,13 +94,13 @@ module.exports = env => {
 
       ]
     },
-    plugins: devPlugins.concat([
+    plugins: [
       new webpack.optimize.CommonsChunkPlugin({
         names: ['example', 'card-maker'],
         minChunks: Infinity
       }),
       new HtmlWebpackPlugin({
-        template: path.join(__dirname, '../src/index.html'),
+        template: path.join(__dirname, '../src/main.html'),
         filename: path.join(__dirname, '../index.html'),
         inject: 'body',
         chunks: [
@@ -102,6 +108,6 @@ module.exports = env => {
           "example"
         ]
       })
-    ])
+    ].concat(devPlugins)
   }
 };

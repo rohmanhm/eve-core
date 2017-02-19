@@ -4,7 +4,7 @@ var template1 = {
     {
       "name": "name",
       "description": "Input your full name, or anything",
-      "value": "RohmanHM",
+      "value": "sadfsdf",
       "props": {
         "x": 270,
         "y": 71,
