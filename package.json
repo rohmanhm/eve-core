@@ -18,7 +18,7 @@
   "homepage": "https://github.com/rohmanhm/card-maker#readme",
   "scripts": {
     "dev": "NODE_ENV=development node webpack/webpack-dev-server",
-    "deploy": "NODE_ENV=production ./node_modules/.bin/webpack -p --config=webpack/webpack.config.js --env.dev=false"
+    "deploy": "rm -rf dist index.html && NODE_ENV=production ./node_modules/.bin/webpack -p --config=webpack/webpack.config.js --env.dev=false"
   },
   "author": {
     "name": "Habib Rohman",
@@ -33,10 +33,12 @@
     "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "html-webpack-plugin": "^2.28.0",
+    "rimraf": "^2.6.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
+    "force-boolean": "^0.0.1",
     "lodash": "^4.17.4"
   }
 }
