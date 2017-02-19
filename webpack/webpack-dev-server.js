@@ -9,7 +9,7 @@ const ENV = { dev: true  };
 
 const devServerConfig = {
   contentBase: [
-    path.join(__dirname, '../'),
+    // path.join(__dirname, '../'),
     path.join(__dirname, '../src/'),
     path.join(__dirname, '../example/')
   ]

@@ -1,3 +1,4 @@
+require('babel-polyfill');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
@@ -16,21 +17,24 @@ module.exports = env => {
   Card Maker @${ npm.version }
   `;
 
+  const output = {
+    filename: '[name].js',
+    libraryTarget: 'umd',
+    library: ['CardMaker']
+  }
+
   const devOutput = env.dev
-  ? {
-      filename: '[name].js',
-      publicPath: 'build/',
-      path: path.join(__dirname, '../build/'),
-      libraryTarget: 'umd',
-      library: ['CardMaker']
-    }
-  : {
-      filename: '[name].js',
+  ? Object.assign({}, {
+      path: path.join(__dirname, '../build/')
+    }, output)
+  : Object.assign({}, {
       path: path.join(__dirname, '../dist/'),
       publicPath: 'dist/',
-      libraryTarget: 'umd',
-      library: ['CardMaker']
-    };
+    }, output);
+
+  const mainFileName = env.dev
+  ? path.join(__dirname, '../build/index.html')
+  : path.join(__dirname, '../index.html');
 
   // Add dev plugins
   const devPlugins = env.dev 
@@ -78,13 +82,7 @@ module.exports = env => {
 
         {
           use: {
-            loader: 'babel-loader',
-            options: {
-              presets: [ ['latest', { modules: false }], 'stage-0' ],
-              "plugins": [
-                "add-module-exports"
-              ]
-            }
+            loader: 'babel-loader'
           },
           resource: {
             exclude: /(node_modules|bower_components)/,
@@ -101,7 +99,7 @@ module.exports = env => {
       }),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, '../src/main.html'),
-        filename: path.join(__dirname, '../index.html'),
+        filename: mainFileName,
         inject: 'body',
         chunks: [
           "card-maker",
