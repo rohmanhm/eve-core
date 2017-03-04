@@ -29,6 +29,16 @@
     #card-container {
       margin: 10px auto;
     }
+    select {
+      width: 400px;
+      max-width: 100%;
+      margin-bottom: 15px;
+      height: 38px;
+      border-radius: 3px !important;
+      background-color: #fbfbfb;
+      border: 1px solid #eeeeee;
+      font-size: 1em;
+    }
     button {
       padding: 10px 20px;
       font-size: 1em;
@@ -64,6 +74,13 @@
     .form__group {
       margin: 5px 0;
     }
+    label {
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+    label ~ * {
+      margin-top: 10px;
+    }
     </style>
   </head>
   <body>
@@ -76,7 +93,17 @@
         Make your card via JSON.
       </p>
       <div id="card-container"></div>
+      <div id="input-options">
+        <label for="change-template">Template</label><br>
+        <select name="template" id="change-template">
+          <option value="darkBlue">Dark Blue</option>
+          <option value="snowman">Snowman</option>
+          <option value="Bluebird">Bluebird</option>
+          <option value="Elegances">Elegances</option>
+        </select>
+      </div>
       <div id="input-wrapper">
+        <label for="setting">Setting</label><br>
         <form name="input-form">
           <div class="form__group">
             <input type="text" class="text" name="img">

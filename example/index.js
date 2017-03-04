@@ -1,75 +1,26 @@
-var template1 = {
-  "background": "https://rohmanhm.github.io/img/defaultbg.jpg",
-  "text": [
-    {
-      "name": "name",
-      "description": "Input your full name, or anything",
-      "value": "sadfsdf",
-      "props": {
-        "x": 270,
-        "y": 71,
-        "size": 20,
-        "stroke": false,
-        "align": "center"
+var axios = require('axios');
+
+function getTemplate (url) {
+  return new Promise((resolve, reject) => {
+    axios.request({
+      url: url,
+      method: 'get',
+      headers: {
+        'Content-type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
       }
-    }, {
-      "name": "email",
-      "description": "Input your email address",
-      "value": "mhrohman@live.com",
-      "props": {
-        "x": 195,
-        "y": 118,
-        "size": 12,
-        "stroke": false,
-        "align":"left"
-      }
-    }, {
-      "name": "phone",
-      "description": "Input your phone number",
-      "value": "(+62)-823-308-91711",
-      "props": {
-        "x": 195,
-        "y": 139,
-        "size": 12,
-        "stroke": false,
-        "align":"left"
-      }
-    }, {
-      "name": "address",
-      "description": "Input your street address",
-      "value": "Pati, Central Java",
-      "props": {
-        "x": 195,
-        "y": 159,
-        "size": 12,
-        "stroke": false,
-        "align":"left"
-      }
-    }
-  ],
-  "images": [
-    {
-      "name": "img",
-      "description": "Input your image avatar",
-      "value": "https://avatars1.githubusercontent.com/u/7524911?v=3&s=460",
-      "props": {
-        "x": 22,
-        "y": 32,
-        "width": 100,
-        "height": 100
-      }
-    }
-  ]
+    })
+    .then(({ data }) => {
+      resolve(data)
+    })
+    .catch(error => {
+      reject(error)
+    })
+  })
 }
 
-var cm = new CardMaker({
-  el: "#card-container",
-  widthCanvas: 500,
-  download: "#download",
-  template: template1,
-  color: "white"
-})
-
-document.getElementById('renderCard').onclick = function () {
-  cm.render()
-}
+getTemplate('/template/dark-blue.json')
+  .then(data => {
+    console.log(data) // Object {status: 'ok', message: 'work perfectly'}
+    new CardMaker(data) // Uncaught (in promise) TypeError: Cannot read property 'protocol' of undefined
+  })

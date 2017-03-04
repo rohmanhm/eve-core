@@ -70,7 +70,8 @@ module.exports = env => {
   return {
     entry: {
       'card-maker': path.join(__dirname, '../src/index.js'),
-      'example': path.join(__dirname, '../example/index.js')
+      'example': path.join(__dirname, '../example/index.js'),
+      'vendor': ['axios']
     },
     output: devOutput,
     devtool: env.dev ? 'inline-sourcemap' : undefined ,
@@ -79,7 +80,6 @@ module.exports = env => {
     },
     module: {
       rules: [
-
         {
           use: {
             loader: 'babel-loader'
@@ -89,12 +89,11 @@ module.exports = env => {
             test: /.js?$/
           }
         }
-
       ]
     },
     plugins: [
       new webpack.optimize.CommonsChunkPlugin({
-        names: ['example', 'card-maker'],
+        names: ['vendor', 'example', 'card-maker'],
         minChunks: Infinity
       }),
       new HtmlWebpackPlugin({
@@ -102,8 +101,9 @@ module.exports = env => {
         filename: mainFileName,
         inject: 'body',
         chunks: [
-          "card-maker",
-          "example"
+          'card-maker',
+          'example',
+          'vendor'
         ]
       })
     ].concat(devPlugins)
