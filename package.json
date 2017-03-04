@@ -1,5 +1,6 @@
 {
   "name": "card-maker",
+  "libraryName": "CardMaker",
   "version": "0.0.7",
   "description": "Making card simple using JSON",
   "main": "./dist/card-maker.js",
@@ -35,12 +36,14 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
+    "expose-loader": "^0.7.3",
     "html-webpack-plugin": "^2.28.0",
     "rimraf": "^2.6.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "force-boolean": "^0.0.1",
     "lodash": "^4.17.4"
   }

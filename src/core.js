@@ -10,7 +10,8 @@ import {
   makeElement,
   makeImage,
   colorNameToHex,
-  isColor
+  isColor,
+  packageConfig
 } from './utils'
 import './polyfill'
 
@@ -19,6 +20,9 @@ const _config = new WeakMap()
 export default class CardMaker {
 
   constructor(configs = {}) {
+
+    this.__name__ = packageConfig.name
+    this.__version__ = packageConfig.version
 
     // default config
     _config.set(this, {

@@ -102,7 +102,6 @@ export function isColor(str) {
 
 }
 
-
 /**
  * Convert url to base64
  *
@@ -123,3 +122,8 @@ export function toDataURL(url, opt = {}) {
         reader.readAsDataURL(blob);
     }));
 }
+
+/**
+ * package.json config
+ */
+export const packageConfig = require('../package.json')
