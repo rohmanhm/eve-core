@@ -1,6 +1,7 @@
 require('babel-polyfill');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const path = require('path');
 const npm = require('../package.json');
 const ForceBoolean = require('force-boolean');
@@ -90,6 +91,7 @@ module.exports = env => {
       ]
     },
     plugins: [
+      new LodashModuleReplacementPlugin,
       new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor', 'example', 'card-maker'],
         minChunks: Infinity
