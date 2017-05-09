@@ -1,5 +1,7 @@
 # Card Maker
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/rohmanhm/card-maker.svg)](https://greenkeeper.io/)
+
 Making card simple using JSON.
 
 ## Demo
