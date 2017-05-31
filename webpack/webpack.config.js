@@ -27,13 +27,12 @@ module.exports = env => {
       path: path.join(__dirname, '../build/')
     }, output)
   : Object.assign({}, {
-      path: path.join(__dirname, '../dist/'),
-      publicPath: 'dist/',
+      path: path.join(__dirname, '../dist/')
     }, output);
 
   const mainFileName = env.dev
   ? path.join(__dirname, '../build/index.html')
-  : path.join(__dirname, '../index.html');
+  : path.join(__dirname, '../dist/index.html');
 
   // Add dev plugins
   const devPlugins = env.dev 
