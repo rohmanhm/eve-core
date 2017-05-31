@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.get('/template/dark-blue.json')
+axios.get('template/dark-blue.json')
   .then(({ data }) => {
     var cm = new CardMaker({
       el: '#card-container',
