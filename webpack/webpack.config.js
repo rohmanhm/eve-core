@@ -1,5 +1,6 @@
 require('babel-polyfill');
 const webpack = require('webpack');
+const copyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const path = require('path');
@@ -62,7 +63,13 @@ module.exports = env => {
           NODE_ENV: JSON.stringify("production") 
         }
       }),
-      new webpack.BannerPlugin(LICENSE_TEXT)
+      new webpack.BannerPlugin(LICENSE_TEXT),
+      new copyWebpackPlugin([
+        {
+          from: path.join(__dirname, '../example/template'),
+          to: path.join(__dirname, '../dist/template')
+        }
+      ])
     ]
 
   return {
