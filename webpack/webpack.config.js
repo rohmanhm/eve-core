@@ -1,5 +1,6 @@
 require('babel-polyfill');
 const webpack = require('webpack');
+const copyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const path = require('path');
@@ -27,13 +28,12 @@ module.exports = env => {
       path: path.join(__dirname, '../build/')
     }, output)
   : Object.assign({}, {
-      path: path.join(__dirname, '../dist/'),
-      publicPath: 'dist/',
+      path: path.join(__dirname, '../dist/')
     }, output);
 
   const mainFileName = env.dev
   ? path.join(__dirname, '../build/index.html')
-  : path.join(__dirname, '../index.html');
+  : path.join(__dirname, '../dist/index.html');
 
   // Add dev plugins
   const devPlugins = env.dev 
@@ -63,7 +63,13 @@ module.exports = env => {
           NODE_ENV: JSON.stringify("production") 
         }
       }),
-      new webpack.BannerPlugin(LICENSE_TEXT)
+      new webpack.BannerPlugin(LICENSE_TEXT),
+      new copyWebpackPlugin([
+        {
+          from: path.join(__dirname, '../example/template'),
+          to: path.join(__dirname, '../dist/template')
+        }
+      ])
     ]
 
   return {
