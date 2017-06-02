@@ -1,3 +1,3 @@
-import core from 'expose-loader?CardMaker!./core.js'
+import core from 'expose-loader?Eve!./core.js'
 
 export default core;

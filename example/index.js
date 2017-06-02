@@ -3,7 +3,7 @@ import axios from 'axios'
 axios.get('template/dark-blue.json')
   .then(({ data }) => {
     var cm = new Eve({
-      el: '#card-container',
+      node: document.getElementById('card-container'),
       widthCanvas: 500,
       download: '#download',
       template: data,

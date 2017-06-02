@@ -16,7 +16,7 @@ module.exports = env => {
 
   Licensed Under Apache License 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
 
-  Card Maker @${ npm.version }
+  Eve Core @${ npm.version }
   `;
 
   const output = {
@@ -74,7 +74,7 @@ module.exports = env => {
 
   return {
     entry: {
-      'card-maker': path.join(__dirname, '../src/index.js'),
+      'eve-core': path.join(__dirname, '../src/index.js'),
       'example': path.join(__dirname, '../example/index.js'),
       'vendor': 'axios'
     },
@@ -99,7 +99,7 @@ module.exports = env => {
     plugins: [
       new LodashModuleReplacementPlugin,
       new webpack.optimize.CommonsChunkPlugin({
-        names: ['vendor', 'example', 'card-maker'],
+        names: ['vendor', 'example', 'eve-core'],
         minChunks: Infinity
       }),
       new HtmlWebpackPlugin({
@@ -107,7 +107,7 @@ module.exports = env => {
         filename: mainFileName,
         inject: 'body',
         chunks: [
-          'card-maker',
+          'eve-core',
           'vendor',
           'example',
         ]

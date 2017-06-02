@@ -57,6 +57,12 @@ export default class Eve {
       el: '#Eve',
 
       /*
+       * Default root element but HTMLElement
+       * it's override el if el is passed
+       */
+      node: undefined,
+
+      /*
        * When it set to true, your element will be set default value with template value
        */
       enableSetToElement: true,
@@ -230,7 +236,7 @@ export default class Eve {
    * @memberOf Eve
    */
   putCanvas() {
-    const config = this.getConfig(['el', 'width', 'height'])
+    const config = this.getConfig(['el', 'node', 'width', 'height'])
     let elem, newCanvas
 
     newCanvas = this.makeCanvas({
@@ -238,7 +244,10 @@ export default class Eve {
       height: config['height']
     })
 
-    elem = document.querySelector(config['el'])
+    elem = config['node']
+      ? config['node']
+      : document.querySelector(config['el'])
+
     if (elem === null || elem === undefined) {
       throw new Error(`Cannot find ${ elem } element in your DOM`)
     }
