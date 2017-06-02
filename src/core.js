@@ -1,9 +1,9 @@
 /**
- * Card Maker
+ * Eve Core
  *
  * Author: M Habib Rohman <mhrohman@live.com>
  *
- * @class CardMaker
+ * @class Eve
  */
 import pick from 'lodash/pick'
 import {
@@ -17,7 +17,7 @@ import './polyfill'
 
 const _config = new WeakMap()
 
-export default class CardMaker {
+export default class Eve {
 
   constructor(configs = {}) {
 
@@ -52,9 +52,9 @@ export default class CardMaker {
       download: '',
 
       /*
-       * Default root card maker element
+       * Default root element
        */ 
-      el: '#cardmaker',
+      el: '#Eve',
 
       /*
        * When it set to true, your element will be set default value with template value
@@ -62,17 +62,17 @@ export default class CardMaker {
       enableSetToElement: true,
 
       /*
-       * Default Width for card maker.
+       * Default Width.
        */ 
       width: 400,
 
       /*
-       * Default Height for card maker
+       * Default Height
        */ 
       height: 250,
 
       /*
-       * Template config card maker
+       * Template config
        */ 
       template: {},
 
@@ -103,7 +103,7 @@ export default class CardMaker {
    * @param {object} props
    * @returns {object}
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   changeBackground(type, props) {
     const config = this.getConfig(['width', 'height'])
@@ -137,7 +137,7 @@ export default class CardMaker {
   /**
    * Enable download
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   enableDownload() {
     const download = this.getConfig('download')
@@ -159,7 +159,7 @@ export default class CardMaker {
    * @param {string} key
    * @returns {object}
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   getConfig(key) {
     const config = _config.get(this)
@@ -186,7 +186,7 @@ export default class CardMaker {
    *
    * @returns
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   getContext() {
     if (this.getConfig('canvas')) return this.getConfig('canvas').getContext('2d')
@@ -199,7 +199,7 @@ export default class CardMaker {
    * @param {float} quality
    * @returns
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   getImage(format = 'jpeg', quality = 1.0) {
     return this.getConfig('canvas').toDataURL(`image/${ format }`, quality)
@@ -211,7 +211,7 @@ export default class CardMaker {
    * @param {object} props
    * @returns
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   makeCanvas(props = {}) {
     if (this.getConfig('canvas') != undefined) throw new Error('Cannot create canvas, You\'ve already set the canvas')
@@ -227,7 +227,7 @@ export default class CardMaker {
    *
    * @return {object}
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   putCanvas() {
     const config = this.getConfig(['el', 'width', 'height'])
@@ -251,7 +251,7 @@ export default class CardMaker {
    *
    * @returns {promises}
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   render() {
     const config = this.getConfig(['background', 'template', 'streamElemTemplate'])
@@ -274,7 +274,7 @@ export default class CardMaker {
    * Render background from template
    *
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   renderBackground() {
     let background = this.getConfig('background')
@@ -293,7 +293,7 @@ export default class CardMaker {
   /**
    * Render image from template
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   renderImage() {
     let images = this.getConfig('template')['images']
@@ -319,7 +319,7 @@ export default class CardMaker {
   /**
    * Render text from template
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   renderText() {
     let text = this.getConfig('template')['text']
@@ -340,7 +340,7 @@ export default class CardMaker {
    * @param {string} params[1]
    * @returns {object}
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   setConfig(...params) {
     const config = this.getConfig()
@@ -370,7 +370,7 @@ export default class CardMaker {
    * it's stream from element attribute which have same name
    * with template name object
    * 
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   streamElemTemplate () {
     const template = this.getConfig('template')
@@ -398,7 +398,7 @@ export default class CardMaker {
    * @param {string} value
    * @returns
    * 
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   setToElement (name, value, desc = '') {
     let enableSetToElement = this.getConfig('enableSetToElement')
@@ -416,7 +416,7 @@ export default class CardMaker {
    *
    * @return {object}
    *
-   * @memberOf CardMaker
+   * @memberOf Eve
    */
   writeText(text, props = {}) {
     const ctx = this.getContext()

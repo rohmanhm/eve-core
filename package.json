@@ -1,25 +1,26 @@
 {
-  "name": "card-maker",
-  "libraryName": "CardMaker",
+  "name": "eve-core",
+  "libraryName": "Eve",
   "version": "0.0.7",
-  "description": "Making card simple using JSON",
-  "main": "./dist/card-maker.js",
+  "description": "JSON and Canvas => Cool",
+  "main": "./dist/eve-core.js",
   "keywords": [
-    "card",
-    "maker",
-    "canvas"
+    "eve",
+    "core",
+    "canvas",
+    "json"
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:rohmanhm/card-maker"
+    "url": "git@github.com:rohmanhm/eve-core"
   },
   "bugs": {
-    "url": "https://github.com/rohmanhm/card-maker/issues"
+    "url": "https://github.com/rohmanhm/eve-core/issues"
   },
-  "homepage": "https://github.com/rohmanhm/card-maker#readme",
+  "homepage": "https://github.com/rohmanhm/eve-core#readme",
   "scripts": {
-    "dev": "rm -rf dist index.html && NODE_ENV=development ./node_modules/.bin/babel-node webpack/webpack-dev-server",
-    "deploy": "rm -rf dist index.html && NODE_ENV=production ./node_modules/.bin/webpack -p --config=webpack/webpack.config.js --env.dev=false"
+    "start": "rm -rf dist index.html && NODE_ENV=development ./node_modules/.bin/babel-node webpack/webpack-dev-server",
+    "build": "rm -rf dist index.html && NODE_ENV=production ./node_modules/.bin/webpack -p --config=webpack/webpack.config.js --env.dev=false"
   },
   "author": {
     "name": "Habib Rohman",

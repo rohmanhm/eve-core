@@ -1,6 +1,6 @@
-# Card Maker
+# Eve Core
 
-Making card simple using JSON.
+JSON and Canvas => Cool
 
 ## Demo
 
@@ -8,21 +8,21 @@ Making card simple using JSON.
 
 [demo]: /images/demo.gif
 
-[Live preview demo](https://rohmanhm.github.io/card-maker/)
+[Live preview demo](https://rohmanhm.github.io/eve-core/)
 
 ## How to use from browser
 
 ```javascript
-new CardMaker(Object)
+new Eve(Object)
 ```
 
 ## How to use from npm
 
 ```javascript
-import CardMaker from 'card-maker'
+import Eve from 'eve-core'
 // you can use require instead
 
-new CardMaker(Object)
+new Eve(Object)
 ```
 
 You can found full example from `example/index.js`
